@@ -72,7 +72,7 @@ public class IjkMediaPlayer extends IjkPlayer {
                 } else {
                     Log.e(TAG, "get同步请求failure==");
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
