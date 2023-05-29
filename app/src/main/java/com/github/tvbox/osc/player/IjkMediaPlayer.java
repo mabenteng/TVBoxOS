@@ -64,6 +64,8 @@ public class IjkMediaPlayer extends IjkPlayer {
             } else if (!TextUtils.isEmpty(path)
                     && !path.contains(".m3u8")
                     && (path.contains(".mp4") || path.contains(".mkv") || path.contains(".avi"))) {
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max-buffer-size", 10*1024*1024);
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max_cached_duration", 100000);
                 if (Hawk.get(HawkConfig.IJK_CACHE_PLAY, false)) {
                     String cachePath = FileUtils.getCachePath() + "/ijkcaches/";
                     String cacheMapPath = cachePath;
@@ -72,6 +74,7 @@ public class IjkMediaPlayer extends IjkPlayer {
                     String tmpMd5 = MD5.string2MD5(path);
                     cachePath += tmpMd5 + ".file";
                     cacheMapPath += tmpMd5 + ".map";
+                    mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36");
                     mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "cache_file_path", cachePath);
                     mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "cache_map_path", cacheMapPath);
                     mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "parse_cache_map", 1);
