@@ -13,7 +13,8 @@ import com.orhanobut.hawk.Hawk;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 import tv.danmaku.ijk.media.player.misc.IjkTrackInfo;
@@ -57,6 +58,24 @@ public class IjkMediaPlayer extends IjkPlayer {
     @Override
     public void setDataSource(String path, Map<String, String> headers) {
         try {
+            if(path.contains("#dx_jiexi")){
+            //这里先判断url是否是144.202.69.73开始的,如果是先返回实际地址再说
+            Request request = new Request.Builder().get().url(path).build();//构建
+            try {
+                //通过OkHttpClient调用请求得到Call
+                final Call call = OkHttpClient.newCall(request);
+                //执行同步请求，获取Response对象
+                Response response = call.execute();
+                if (response.isSuccessful()) {//如果请求成功
+                    String string22 = response.body().string();
+                    path=string22;
+                } else {
+                    Log.e(TAG, "get同步请求failure==");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
             if (path != null && !TextUtils.isEmpty(path) && path.startsWith("rtsp")) {
                 mMediaPlayer.setOption(1, "infbuf", 1);
                 mMediaPlayer.setOption(1, "rtsp_transport", "tcp");
@@ -66,6 +85,8 @@ public class IjkMediaPlayer extends IjkPlayer {
                     && (path.contains(".mp4") || path.contains(".mkv") || path.contains(".avi"))) {
                 mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max-buffer-size", 10*1024*1024);
                 mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max_cached_duration", 100000);
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1);
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reconnect", 1);
                 if (Hawk.get(HawkConfig.IJK_CACHE_PLAY, false)) {
                     String cachePath = FileUtils.getCachePath() + "/ijkcaches/";
                     String cacheMapPath = cachePath;
