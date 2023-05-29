@@ -69,9 +69,7 @@ public class IjkMediaPlayer extends IjkPlayer {
                 if (response.isSuccessful()) {//如果请求成功
                     String string22 = response.body().string();
                     path=string22;
-                } else {
-                    Log.e(TAG, "get同步请求failure==");
-                }
+                } 
             } catch (Exception e) {
                 e.printStackTrace();
             }
