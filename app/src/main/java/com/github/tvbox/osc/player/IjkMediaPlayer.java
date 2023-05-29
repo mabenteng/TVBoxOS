@@ -57,7 +57,7 @@ public class IjkMediaPlayer extends IjkPlayer {
 
     @Override
     public void setDataSource(String path, Map<String, String> headers) {
-        // try {
+        try {
         //     if(path.contains("#dx_jiexi")){
         //     //这里先判断url是否是144.202.69.73开始的,如果是先返回实际地址再说
         //     Request request = new Request.Builder().get().url(path).build();//构建
