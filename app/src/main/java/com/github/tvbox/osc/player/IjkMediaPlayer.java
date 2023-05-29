@@ -57,23 +57,23 @@ public class IjkMediaPlayer extends IjkPlayer {
 
     @Override
     public void setDataSource(String path, Map<String, String> headers) {
-        try {
-            if(path.contains("#dx_jiexi")){
-            //这里先判断url是否是144.202.69.73开始的,如果是先返回实际地址再说
-            Request request = new Request.Builder().get().url(path).build();//构建
-            try {
-                //通过OkHttpClient调用请求得到Call
-                final Call call = OkHttpClient.newCall(request);
-                //执行同步请求，获取Response对象
-                Response response = call.execute();
-                if (response.isSuccessful()) {//如果请求成功
-                    String string22 = response.body().string();
-                    path=string22;
-                } 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        // try {
+        //     if(path.contains("#dx_jiexi")){
+        //     //这里先判断url是否是144.202.69.73开始的,如果是先返回实际地址再说
+        //     Request request = new Request.Builder().get().url(path).build();//构建
+        //     try {
+        //         //通过OkHttpClient调用请求得到Call
+        //         final Call call = OkHttpClient.newCall(request);
+        //         //执行同步请求，获取Response对象
+        //         Response response = call.execute();
+        //         if (response.isSuccessful()) {//如果请求成功
+        //             String string22 = response.body().string();
+        //             path=string22;
+        //         } 
+        //     } catch (Exception e) {
+        //         e.printStackTrace();
+        //     }
+        // }
             if (path != null && !TextUtils.isEmpty(path) && path.startsWith("rtsp")) {
                 mMediaPlayer.setOption(1, "infbuf", 1);
                 mMediaPlayer.setOption(1, "rtsp_transport", "tcp");
