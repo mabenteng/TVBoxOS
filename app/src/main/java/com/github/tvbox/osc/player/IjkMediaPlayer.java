@@ -62,9 +62,11 @@ public class IjkMediaPlayer extends IjkPlayer {
         //     //这里先判断url是否是144.202.69.73开始的,如果是先返回实际地址再说
         //     Request request = new Request.Builder().get().url(path).build();//构建
         //     try {
+        //           OkHttpClient client = new OkHttpClient();
         //         //通过OkHttpClient调用请求得到Call
-        //         final Call call = OkHttpClient.newCall(request);
+        //         final Call call = client.newCall(request);
         //         //执行同步请求，获取Response对象
+
         //         Response response = call.execute();
         //         if (response.isSuccessful()) {//如果请求成功
         //             String string22 = response.body().string();
@@ -81,10 +83,12 @@ public class IjkMediaPlayer extends IjkPlayer {
             } else if (!TextUtils.isEmpty(path)
                     && !path.contains(".m3u8")
                     && (path.contains(".mp4") || path.contains(".mkv") || path.contains(".avi"))) {
-                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max-buffer-size", 10*1024*1024);
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "max-buffer-size", 1048576);
                 mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_PLAYER, "max_cached_duration", 100000);
                 mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_clear", 1);
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "dns_cache_timeout", -1);
                 mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "reconnect", 1);
+                mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Mozilla/5.0 (Android 4.4; Mobile;)");
                 if (Hawk.get(HawkConfig.IJK_CACHE_PLAY, false)) {
                     String cachePath = FileUtils.getCachePath() + "/ijkcaches/";
                     String cacheMapPath = cachePath;
