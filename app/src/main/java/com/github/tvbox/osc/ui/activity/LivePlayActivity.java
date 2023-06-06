@@ -523,6 +523,7 @@ public class LivePlayActivity extends BaseActivity {
                 ((TextView) findViewById(R.id.tv_source)).setText("[线路" + (channel_Name.getSourceIndex() + 1) + "/" + channel_Name.getSourceNum() + "]");
             }
             tv_right_top_channel_name.setText(channel_Name.getChannelName());
+            //右上角名字
             tv_right_top_epg_name.setText(channel_Name.getChannelName());
             ll_right_top_loading.setVisibility(View.VISIBLE);
 
@@ -598,6 +599,7 @@ public class LivePlayActivity extends BaseActivity {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        //遥控器键盘按键事件
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             int keyCode = event.getKeyCode();
             if (keyCode == KeyEvent.KEYCODE_MENU) {
@@ -767,13 +769,15 @@ public class LivePlayActivity extends BaseActivity {
     };
 
     private boolean playChannel(int channelGroupIndex, int liveChannelIndex, boolean changeSource) {
-        if ((channelGroupIndex == currentChannelGroupIndex && liveChannelIndex == currentLiveChannelIndex && !changeSource)
-                || (changeSource && currentLiveChannelItem.getSourceNum() == 1)) {
-           // showChannelInfo();
-            return true;
-        }
+        //在频道列表点击某个电视台的播放事件
+        //如果点击等于自身或者是换源了但是源就一个就直接返回,这里屏蔽掉,因为需要直接点击重放
+        // if ((channelGroupIndex == currentChannelGroupIndex && liveChannelIndex == currentLiveChannelIndex && !changeSource)
+        //         || (changeSource && currentLiveChannelItem.getSourceNum() == 1)) {
+        //    // showChannelInfo();
+        //     return true;
+        // }
         mVideoView.release();
-        if (!changeSource) {
+        if (!changeSource) {//如果没有换源
             currentChannelGroupIndex = channelGroupIndex;
             currentLiveChannelIndex = liveChannelIndex;
             currentLiveChannelItem = getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex);
@@ -806,12 +810,14 @@ public class LivePlayActivity extends BaseActivity {
     }
 
     private void playPrevious() {
+        //播放上一个节目
         if (!isCurrentLiveChannelValid()) return;
         Integer[] groupChannelIndex = getNextChannel(-1);
         playChannel(groupChannelIndex[0], groupChannelIndex[1], false);
     }
 
     public void playPreSource() {
+        //播放上一个源
         if (!isCurrentLiveChannelValid()) return;
         currentLiveChannelItem.preSource();
         playChannel(currentChannelGroupIndex, currentLiveChannelIndex, true);
@@ -1220,6 +1226,7 @@ public class LivePlayActivity extends BaseActivity {
         @Override
         public void run() {
             currentLiveChangeSourceTimes++;
+            //如果播放超时,就播放下一个源,否则就放下个节目
             if (currentLiveChannelItem.getSourceNum() == currentLiveChangeSourceTimes) {
                 currentLiveChangeSourceTimes = 0;
                 Integer[] groupChannelIndex = getNextChannel(Hawk.get(HawkConfig.LIVE_CHANNEL_REVERSE, false) ? -1 : 1);
@@ -1539,6 +1546,7 @@ public class LivePlayActivity extends BaseActivity {
 
     public void loadProxyLives(String url) {
         try {
+            //获取url参数解析
             Uri parsedUrl = Uri.parse(url);
             url = new String(Base64.decode(parsedUrl.getQueryParameter("ext"), Base64.DEFAULT | Base64.URL_SAFE | Base64.NO_WRAP), "UTF-8");
         } catch (Throwable th) {

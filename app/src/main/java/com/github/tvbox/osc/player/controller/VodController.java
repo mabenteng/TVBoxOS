@@ -823,6 +823,10 @@ public class VodController extends BaseController {
                 if(mProgressRoot.getVisibility()==GONE)mPlayLoadNetSpeed.setVisibility(VISIBLE);
                 break;
             case VideoView.STATE_PLAYBACK_COMPLETED:
+                if(mPlayTitle.contains("*")){
+                    listener.replay(true);
+                    break;
+                }
                 listener.playNext(true);
                 break;
         }
