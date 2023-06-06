@@ -64,7 +64,7 @@ public class IjkMediaPlayer extends IjkPlayer {
             } else if (!TextUtils.isEmpty(path)
                     && !path.contains(".m3u8")
                     && (path.contains(".mp4") || path.contains(".mkv") || path.contains(".avi"))) {
-                        mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; TencentTraveler 4.0; .NET CLR 2.0.50727)");
+                        
                 if (Hawk.get(HawkConfig.IJK_CACHE_PLAY, false)) {
                     String cachePath = FileUtils.getCachePath() + "/ijkcaches/";
                     String cacheMapPath = cachePath;
@@ -87,6 +87,7 @@ public class IjkMediaPlayer extends IjkPlayer {
             e.printStackTrace();
         }
         setDataSourceHeader(headers);
+        mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "user_agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; TencentTraveler 4.0; .NET CLR 2.0.50727)");
         mMediaPlayer.setOption(tv.danmaku.ijk.media.player.IjkMediaPlayer.OPT_CATEGORY_FORMAT, "protocol_whitelist", "ijkio,ffio,async,cache,crypto,file,http,https,ijkhttphook,ijkinject,ijklivehook,ijklongurl,ijksegment,ijktcphook,pipe,rtp,tcp,tls,udp,ijkurlhook,data");
         super.setDataSource(path, null);
     }
