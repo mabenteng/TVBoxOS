@@ -527,8 +527,8 @@ public class LivePlayActivity extends BaseActivity {
             //右上角名字
             tv_right_top_epg_name.setText(channel_Name.getChannelName());
             //获取url参数解析
-            Uri parsedUrl = Uri.parse(getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).geturl());
-            String url2 = new String(parsedUrl.getQueryParameter("biname"), "UTF-8");
+            Uri parsedUrl = Uri.parse(getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl());
+            String url2 = parsedUrl.getQueryParameter("biname");
             tv_right_top_epg_name.setText(url2);
             ll_right_top_loading.setVisibility(View.VISIBLE);
 
