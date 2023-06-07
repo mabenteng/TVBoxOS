@@ -523,12 +523,13 @@ public class LivePlayActivity extends BaseActivity {
             } else {
                 ((TextView) findViewById(R.id.tv_source)).setText("[线路" + (channel_Name.getSourceIndex() + 1) + "/" + channel_Name.getSourceNum() + "]");
             }
-            tv_right_top_channel_name.setText(channel_Name.getChannelName());
+            // tv_right_top_channel_name.setText(channel_Name.getChannelName());
             //右上角名字
-            tv_right_top_epg_name.setText(channel_Name.getChannelName());
+            // tv_right_top_epg_name.setText(channel_Name.getChannelName());
             //获取url参数解析
             Uri parsedUrl = Uri.parse(getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl());
             String url2 = parsedUrl.getQueryParameter("biname");
+            tv_right_top_channel_name.setText(url2);
             tv_right_top_epg_name.setText(url2);
             ll_right_top_loading.setVisibility(View.VISIBLE);
 

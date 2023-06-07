@@ -717,8 +717,8 @@
 		android:orientation="vertical"
 		android:id="@+id/ll_right_top_loading"
 		android:background="@drawable/shape_user_search"
-		android:layout_width="@dimen/vs_240"
-		android:layout_height="@dimen/vs_70"
+		android:layout_width="@dimen/vs_640"
+		android:layout_height="@dimen/vs_140"
 		android:layout_marginTop="25mm"
 		android:layout_marginRight="25mm"
 
