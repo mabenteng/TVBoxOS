@@ -239,10 +239,10 @@ public class LivePlayActivity extends BaseActivity {
         divLoadEpgleft = (View) findViewById(R.id.divLoadEpgleft);
         divEpg = (LinearLayout) findViewById(R.id.divEPG);
         //右上角图片旋转右上角自定义标题
-        objectAnimator = ObjectAnimator.ofFloat(iv_circle_bg,"rotation", 360.0f);
-        objectAnimator.setDuration(5000);
-        objectAnimator.setRepeatCount(-1);
-        objectAnimator.start();
+        // objectAnimator = ObjectAnimator.ofFloat(iv_circle_bg,"rotation", 360.0f);
+        // objectAnimator.setDuration(5000);
+        // objectAnimator.setRepeatCount(-1);
+        // objectAnimator.start();
 
         //laodao 7day replay
         mEpgDateGridView = findViewById(R.id.mEpgDateGridView);
@@ -463,6 +463,7 @@ public class LivePlayActivity extends BaseActivity {
     private void showBottomEpg() {
         if (isSHIYI)
             return;
+        //如果频道名字不为空的话
         if (channel_Name.getChannelName() != null) {
             ((TextView) findViewById(R.id.tv_channel_bar_name)).setText(channel_Name.getChannelName());
             ((TextView) findViewById(R.id.tv_channel_bottom_number)).setText("" + channel_Name.getChannelNum());
@@ -525,6 +526,10 @@ public class LivePlayActivity extends BaseActivity {
             tv_right_top_channel_name.setText(channel_Name.getChannelName());
             //右上角名字
             tv_right_top_epg_name.setText(channel_Name.getChannelName());
+            //获取url参数解析
+            Uri parsedUrl = Uri.parse(channel_Name.geturl());
+            url2 = new String(parsedUrl.getQueryParameter("biname"), "UTF-8");
+            tv_right_top_epg_name.setText(url2);
             ll_right_top_loading.setVisibility(View.VISIBLE);
 
             if (countDownTimerRightTop != null) {
@@ -539,9 +544,10 @@ public class LivePlayActivity extends BaseActivity {
                     ll_right_top_loading.setVisibility(View.GONE);
                 }
             };
+            countDownTimerRightTop.start();
 
         }
-        countDownTimerRightTop.start();
+        
     }
 
     private void updateChannelIcon(String channelName, String logoUrl) {
@@ -788,6 +794,7 @@ public class LivePlayActivity extends BaseActivity {
         channel_Name = currentLiveChannelItem;
         isSHIYI=false;
         isBack = false;
+        //只有url包含pltv/8888才会显示时移功能
         if(currentLiveChannelItem.getUrl().indexOf("PLTV/8888") !=-1){
             currentLiveChannelItem.setinclude_back(true);
         }else {
@@ -1190,8 +1197,10 @@ public class LivePlayActivity extends BaseActivity {
                         break;
                     case VideoView.STATE_ERROR:
                     case VideoView.STATE_PLAYBACK_COMPLETED:
+                        //关闭这个定时器
                         mHandler.removeCallbacks(mConnectTimeoutChangeSourceRun);
-//                        mHandler.post(mConnectTimeoutChangeSourceRun);
+                        //mHandler.post(mConnectTimeoutChangeSourceRun);
+                        //下面是1.5s执行一次mConnectTimeoutChangeSourceRun
                         mHandler.postDelayed(mConnectTimeoutChangeSourceRun, 1500);
                         break;
                     case VideoView.STATE_PREPARING:
@@ -1226,12 +1235,18 @@ public class LivePlayActivity extends BaseActivity {
         @Override
         public void run() {
             currentLiveChangeSourceTimes++;
-            //如果播放超时,就播放下一个源,否则就放下个节目
+            //如果当前频道的总播放源等于当前改变源的次数,说明播放了一遍了,就归0播放下一个
             if (currentLiveChannelItem.getSourceNum() == currentLiveChangeSourceTimes) {
                 currentLiveChangeSourceTimes = 0;
-                Integer[] groupChannelIndex = getNextChannel(Hawk.get(HawkConfig.LIVE_CHANNEL_REVERSE, false) ? -1 : 1);
-                playChannel(groupChannelIndex[0], groupChannelIndex[1], false);
+                //如果标题包含*就重复播放当前的url
+                if(currentLiveChannelItem.getChannelName().contains("*")){
+                    playChannel(currentChannelGroupIndex, currentLiveChannelIndex,true);
+                }else{
+                    Integer[] groupChannelIndex = getNextChannel(Hawk.get(HawkConfig.LIVE_CHANNEL_REVERSE, false) ? -1 : 1);
+                    playChannel(groupChannelIndex[0], groupChannelIndex[1], false);
+                }
             } else {
+                //否则就播放下一个源
                 playNextSource();
             }
         }

@@ -824,7 +824,7 @@ public class VodController extends BaseController {
                 break;
             case VideoView.STATE_PLAYBACK_COMPLETED:
                 if(mPlayTitle.toString().contains("*")){
-                    listener.replay(true);
+                    listener.replay(false);
                     break;
                 }
                 listener.playNext(true);
