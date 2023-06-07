@@ -527,12 +527,28 @@ public class LivePlayActivity extends BaseActivity {
             //右上角名字
             // tv_right_top_epg_name.setText(channel_Name.getChannelName());
             //获取url参数解析
-            Uri parsedUrl = Uri.parse(getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl());
+            String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
+            String urldenixin="http://day.deni.xin/getbilitmp";
+            OkGo.<String>get(urldenixin).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    String urltmp = response.body();
+                }
+                @Override//适配器模式,可以不实现该方法
+                public void onError(Response<String> response) {
+
+                }
+            });
+            
+            // Uri parsedUrl = Uri.parse(url0);
+            Uri parsedUrl = Uri.parse(urltmp);
             String url2 = parsedUrl.getQueryParameter("biname");
             tv_right_top_channel_name.setText(url2);
             tv_right_top_epg_name.setText(url2);
-            ll_right_top_loading.setVisibility(View.VISIBLE);
-
+            // ll_right_top_loading.setVisibility(View.VISIBLE);
+            if (url2 != null) {
+                ll_right_top_loading.setVisibility(View.VISIBLE);
+            }
             if (countDownTimerRightTop != null) {
                 countDownTimerRightTop.cancel();
             }
