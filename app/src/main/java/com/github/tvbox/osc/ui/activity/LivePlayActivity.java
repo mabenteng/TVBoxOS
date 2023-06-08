@@ -560,9 +560,10 @@ public class LivePlayActivity extends BaseActivity {
 
                 public void onFinish() {
                     ll_right_top_loading.setVisibility(View.GONE);
+                    countDownTimerRightTop.start();
                 }
             };
-            countDownTimerRightTop.start();
+            
 
         }
         
@@ -818,13 +819,13 @@ public class LivePlayActivity extends BaseActivity {
         }else {
             currentLiveChannelItem.setinclude_back(false);
         }
-        showBottomEpg();
-        getEpg(new Date());
         backcontroller.setVisibility(View.GONE);
         ll_right_top_huikan.setVisibility(View.GONE);
         mVideoView.setUrl(currentLiveChannelItem.getUrl());
        // showChannelInfo();
         mVideoView.start();
+        showBottomEpg();
+        getEpg(new Date());
         return true;
     }
 
