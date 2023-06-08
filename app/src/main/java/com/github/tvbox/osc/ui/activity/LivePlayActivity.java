@@ -827,15 +827,20 @@ public class LivePlayActivity extends BaseActivity {
         String url0=currentLiveChannelItem.getUrl();
         String url2=null;
         String urltmp=null;
-        if(url0.contains("deni.xin/biliid") || url0.contains("deni.xin/randomtv")){
+        String urlname="";
+        if(url0.contains("&realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
-            OkGo.<String>get(url0+"&realurl=122").execute(new StringCallback() {
+            OkGo.<String>get(url0).execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
                     String urltmp = response.body();
                     // Uri parsedUrl = Uri.parse(url0);
                     Uri parsedUrl = Uri.parse(urltmp);
-                    String urlname = parsedUrl.getQueryParameter("biname");
+                    urlname = parsedUrl.getQueryParameter("biname");
+                    tv_right_top_channel_name.setText(urlname);
+                    //右上角名字
+                    tv_right_top_epg_name.setText(urlname);
+                    ll_right_top_loading.setVisibility(View.VISIBLE);
                 }
             });
             
