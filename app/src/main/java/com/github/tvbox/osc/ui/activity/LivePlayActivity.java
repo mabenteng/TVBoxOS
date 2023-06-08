@@ -528,7 +528,7 @@ public class LivePlayActivity extends BaseActivity {
             String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
             if(url0.contains("deni.xin")){
                 // String urldenixin="http://day.deni.xin/getbilitmp";
-                OkGo.<String>get(url0+"&return=1").execute(new StringCallback() {
+                OkGo.<String>get(url0+"&realurl=122").execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String urltmp = response.body();
