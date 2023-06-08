@@ -550,13 +550,11 @@ public class LivePlayActivity extends BaseActivity {
                 tv_right_top_channel_name.setText(urlname);
                 //右上角名字
                 tv_right_top_epg_name.setText(urlname);
-                ll_right_top_loading.setVisibility(View.VISIBLE);
             }else{
                 tv_right_top_channel_name.setText(channel_Name.getChannelName());
-                //右上角名字
                 tv_right_top_epg_name.setText(channel_Name.getChannelName());
-                ll_right_top_loading.setVisibility(View.VISIBLE);
             }
+            ll_right_top_loading.setVisibility(View.VISIBLE);
             
             //}
             if (countDownTimerRightTop != null) {
@@ -834,12 +832,12 @@ public class LivePlayActivity extends BaseActivity {
                 public void onSuccess(Response<String> response) {
                     String urltmp = response.body();
                     // Uri parsedUrl = Uri.parse(url0);
+                    this.urltmp=urltmp;
                     Uri parsedUrl = Uri.parse(urltmp);
                     String urlname = parsedUrl.getQueryParameter("biname");
                     tv_right_top_channel_name.setText(urlname);
-                    //右上角名字
                     tv_right_top_epg_name.setText(urlname);
-                    ll_right_top_loading.setVisibility(View.VISIBLE);
+                    // ll_right_top_loading.setVisibility(View.VISIBLE);
                 }
             });
             
@@ -848,7 +846,7 @@ public class LivePlayActivity extends BaseActivity {
         getEpg(new Date());
         backcontroller.setVisibility(View.GONE);
         ll_right_top_huikan.setVisibility(View.GONE);
-        if(urltmp != null){
+        if(url0.contains("&realurl=")){
             mVideoView.setUrl(urltmp);
         }else{
             mVideoView.setUrl(currentLiveChannelItem.getUrl());
