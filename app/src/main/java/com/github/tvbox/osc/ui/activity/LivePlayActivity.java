@@ -527,8 +527,8 @@ public class LivePlayActivity extends BaseActivity {
             //获取url参数解析
             String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
             if(url0.contains("deni.xin")){
-                String urldenixin="http://day.deni.xin/getbilitmp";
-                OkGo.<String>get(urldenixin).execute(new StringCallback() {
+                // String urldenixin="http://day.deni.xin/getbilitmp";
+                OkGo.<String>get(url0+"&return=1").execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String urltmp = response.body();
@@ -554,17 +554,16 @@ public class LivePlayActivity extends BaseActivity {
                 countDownTimerRightTop.cancel();
             }
             countDownTimerRightTop = new CountDownTimer(5000, 1000) {
-
                 public void onTick(long j) {
                 }
-
                 public void onFinish() {
                     ll_right_top_loading.setVisibility(View.GONE);
-                    countDownTimerRightTop.start();
                 }
             };
-            
-
+            countDownTimerRightTop.start();
+            if(url0.contains("deni.xin")){
+                return urltmp;
+            }
         }
         
     }
@@ -819,13 +818,17 @@ public class LivePlayActivity extends BaseActivity {
         }else {
             currentLiveChannelItem.setinclude_back(false);
         }
+        String realurl=showBottomEpg();
+        getEpg(new Date());
         backcontroller.setVisibility(View.GONE);
         ll_right_top_huikan.setVisibility(View.GONE);
-        mVideoView.setUrl(currentLiveChannelItem.getUrl());
+        if(realurl != null){
+            mVideoView.setUrl(real);
+        }else{
+            mVideoView.setUrl(currentLiveChannelItem.getUrl());
+        }
        // showChannelInfo();
         mVideoView.start();
-        showBottomEpg();
-        getEpg(new Date());
         return true;
     }
 
