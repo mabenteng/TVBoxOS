@@ -461,7 +461,7 @@ public class LivePlayActivity extends BaseActivity {
     }
 
     //显示底部EPG
-    private void showBottomEpg() {
+    private void showBottomEpg(String urlname=null) {
         if (isSHIYI)
             return;
         //如果频道名字不为空的话
@@ -525,31 +525,39 @@ public class LivePlayActivity extends BaseActivity {
                 ((TextView) findViewById(R.id.tv_source)).setText("[线路" + (channel_Name.getSourceIndex() + 1) + "/" + channel_Name.getSourceNum() + "]");
             }
             //获取url参数解析
-            String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
-            if(url0.contains("deni.xin/biliid") || url0.contains("deni.xin/randomtv")){
-                // String urldenixin="http://day.deni.xin/getbilitmp";
-                OkGo.<String>get(url0+"&realurl=122").execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        String urltmp = response.body();
-                        // Uri parsedUrl = Uri.parse(url0);
-                        Uri parsedUrl = Uri.parse(urltmp);
-                        String url2 = parsedUrl.getQueryParameter("biname");
-                        tv_right_top_channel_name.setText(url2);
-                        tv_right_top_epg_name.setText(url2);
-                        // ll_right_top_loading.setVisibility(View.VISIBLE);
-                        if (url2 != null) {
-                            ll_right_top_loading.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
+            // String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
+            // if(url0.contains("deni.xin/biliid") || url0.contains("deni.xin/randomtv")){
+            //     // String urldenixin="http://day.deni.xin/getbilitmp";
+            //     OkGo.<String>get(url0+"&realurl=122").execute(new StringCallback() {
+            //         @Override
+            //         public void onSuccess(Response<String> response) {
+            //             String urltmp = response.body();
+            //             // Uri parsedUrl = Uri.parse(url0);
+            //             Uri parsedUrl = Uri.parse(urltmp);
+            //             String url2 = parsedUrl.getQueryParameter("biname");
+            //             tv_right_top_channel_name.setText(url2);
+            //             tv_right_top_epg_name.setText(url2);
+            //             // ll_right_top_loading.setVisibility(View.VISIBLE);
+            //             if (url2 != null) {
+            //                 ll_right_top_loading.setVisibility(View.VISIBLE);
+            //             }
+            //         }
+            //     });
                 
+            // }else{
+            if(urlname!=null){
+                tv_right_top_channel_name.setText(urlname);
+                //右上角名字
+                tv_right_top_epg_name.setText(urlname);
+                ll_right_top_loading.setVisibility(View.VISIBLE);
             }else{
                 tv_right_top_channel_name.setText(channel_Name.getChannelName());
                 //右上角名字
                 tv_right_top_epg_name.setText(channel_Name.getChannelName());
                 ll_right_top_loading.setVisibility(View.VISIBLE);
             }
+            
+            //}
             if (countDownTimerRightTop != null) {
                 countDownTimerRightTop.cancel();
             }
@@ -561,9 +569,6 @@ public class LivePlayActivity extends BaseActivity {
                 }
             };
             countDownTimerRightTop.start();
-            if(url0.contains("deni.xin")){
-                return urltmp;
-            }
         }
         
     }
@@ -818,12 +823,32 @@ public class LivePlayActivity extends BaseActivity {
         }else {
             currentLiveChannelItem.setinclude_back(false);
         }
-        String realurl=showBottomEpg();
+        String url0=currentLiveChannelItem.getUrl();
+        String url2=null;
+        String urltmp=null;
+        if(url0.contains("deni.xin/biliid") || url0.contains("deni.xin/randomtv")){
+            // String urldenixin="http://day.deni.xin/getbilitmp";
+            OkGo.<String>get(url0+"&realurl=122").execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    String urltmp = response.body();
+                    // Uri parsedUrl = Uri.parse(url0);
+                    Uri parsedUrl = Uri.parse(urltmp);
+                    String url2 = parsedUrl.getQueryParameter("biname");
+                }
+            });
+            
+        }
+        if (url2!=null){
+            showBottomEpg(url2);
+        }else{
+            showBottomEpg();
+        }
         getEpg(new Date());
         backcontroller.setVisibility(View.GONE);
         ll_right_top_huikan.setVisibility(View.GONE);
-        if(realurl != null){
-            mVideoView.setUrl(realurl);
+        if(urltmp != null){
+            mVideoView.setUrl(urltmp);
         }else{
             mVideoView.setUrl(currentLiveChannelItem.getUrl());
         }
