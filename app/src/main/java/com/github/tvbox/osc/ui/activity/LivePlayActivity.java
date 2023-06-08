@@ -534,12 +534,7 @@ public class LivePlayActivity extends BaseActivity {
                 public void onSuccess(Response<String> response) {
                     String urltmp = response.body();
                 }
-                @Override//适配器模式,可以不实现该方法
-                public void onError(Response<String> response) {
-
-                }
             });
-            
             // Uri parsedUrl = Uri.parse(url0);
             Uri parsedUrl = Uri.parse(urltmp);
             String url2 = parsedUrl.getQueryParameter("biname");
