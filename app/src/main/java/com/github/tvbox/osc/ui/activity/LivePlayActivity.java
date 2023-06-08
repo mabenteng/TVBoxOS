@@ -524,25 +524,30 @@ public class LivePlayActivity extends BaseActivity {
             } else {
                 ((TextView) findViewById(R.id.tv_source)).setText("[线路" + (channel_Name.getSourceIndex() + 1) + "/" + channel_Name.getSourceNum() + "]");
             }
-            // tv_right_top_channel_name.setText(channel_Name.getChannelName());
-            //右上角名字
-            // tv_right_top_epg_name.setText(channel_Name.getChannelName());
             //获取url参数解析
             String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
-            String urldenixin="http://day.deni.xin/getbilitmp";
-            OkGo.<String>get(urldenixin).execute(new StringCallback() {
-                @Override
-                public void onSuccess(Response<String> response) {
-                    String urltmp = response.body();
-                }
-            });
-            // Uri parsedUrl = Uri.parse(url0);
-            Uri parsedUrl = Uri.parse(urltmp);
-            String url2 = parsedUrl.getQueryParameter("biname");
-            tv_right_top_channel_name.setText(url2);
-            tv_right_top_epg_name.setText(url2);
-            // ll_right_top_loading.setVisibility(View.VISIBLE);
-            if (url2 != null) {
+            if(url0.contains("deni.xin")){
+                String urldenixin="http://day.deni.xin/getbilitmp";
+                OkGo.<String>get(urldenixin).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String urltmp = response.body();
+                        // Uri parsedUrl = Uri.parse(url0);
+                        Uri parsedUrl = Uri.parse(urltmp);
+                        String url2 = parsedUrl.getQueryParameter("biname");
+                        tv_right_top_channel_name.setText(url2);
+                        tv_right_top_epg_name.setText(url2);
+                        // ll_right_top_loading.setVisibility(View.VISIBLE);
+                        if (url2 != null) {
+                            ll_right_top_loading.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+                
+            }else{
+                tv_right_top_channel_name.setText(channel_Name.getChannelName());
+                //右上角名字
+                tv_right_top_epg_name.setText(channel_Name.getChannelName());
                 ll_right_top_loading.setVisibility(View.VISIBLE);
             }
             if (countDownTimerRightTop != null) {
