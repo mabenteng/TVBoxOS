@@ -117,6 +117,7 @@ public class LivePlayActivity extends BaseActivity {
     private List<LiveSettingGroup> liveSettingGroupList = new ArrayList<>();
 
     public static  int currentChannelGroupIndex = 0;
+    public static  String urltmp = "";
     private Handler mHandler = new Handler();
 
     private List<LiveChannelGroup> liveChannelGroupList = new ArrayList<>();
@@ -824,15 +825,12 @@ public class LivePlayActivity extends BaseActivity {
         }
         String url0=currentLiveChannelItem.getUrl();
         String url2=null;
-        String urltmp=null;
         if(url0.contains("&realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
             OkGo.<String>get(url0).execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-                    String urltmp = response.body();
-                    // Uri parsedUrl = Uri.parse(url0);
-                    this.urltmp=urltmp;
+                    urltmp = response.body();
                     Uri parsedUrl = Uri.parse(urltmp);
                     String urlname = parsedUrl.getQueryParameter("biname");
                     tv_right_top_channel_name.setText(urlname);
