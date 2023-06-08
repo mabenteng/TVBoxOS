@@ -835,16 +835,12 @@ public class LivePlayActivity extends BaseActivity {
                     String urltmp = response.body();
                     // Uri parsedUrl = Uri.parse(url0);
                     Uri parsedUrl = Uri.parse(urltmp);
-                    String url2 = parsedUrl.getQueryParameter("biname");
+                    String urlname = parsedUrl.getQueryParameter("biname");
                 }
             });
             
         }
-        if (url2!=null){
-            showBottomEpg(url2);
-        }else{
-            showBottomEpg();
-        }
+        showBottomEpg();
         getEpg(new Date());
         backcontroller.setVisibility(View.GONE);
         ll_right_top_huikan.setVisibility(View.GONE);
