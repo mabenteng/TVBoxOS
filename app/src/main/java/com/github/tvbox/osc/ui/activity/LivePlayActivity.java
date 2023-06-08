@@ -461,7 +461,7 @@ public class LivePlayActivity extends BaseActivity {
     }
 
     //显示底部EPG
-    private void showBottomEpg(String urlname=null) {
+    private void showBottomEpg(String urlname) {
         if (isSHIYI)
             return;
         //如果频道名字不为空的话
