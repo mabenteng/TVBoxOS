@@ -191,6 +191,7 @@ public class LivePlayActivity extends BaseActivity {
     private View iv_playpause;
     private View iv_play;
     private  boolean show = false;
+    private  String urlname = "";
 
     @Override
     protected int getLayoutResID() {
@@ -461,7 +462,7 @@ public class LivePlayActivity extends BaseActivity {
     }
 
     //显示底部EPG
-    private void showBottomEpg(String urlname="") {
+    private void showBottomEpg() {
         if (isSHIYI)
             return;
         //如果频道名字不为空的话
