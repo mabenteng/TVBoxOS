@@ -526,7 +526,7 @@ public class LivePlayActivity extends BaseActivity {
             }
             //获取url参数解析
             String url0=getLiveChannels(currentChannelGroupIndex).get(currentLiveChannelIndex).getUrl();
-            if(url0.contains("deni.xin")){
+            if(url0.contains("deni.xin/biliid") || url0.contains("deni.xin/randomtv")){
                 // String urldenixin="http://day.deni.xin/getbilitmp";
                 OkGo.<String>get(url0+"&realurl=122").execute(new StringCallback() {
                     @Override
@@ -823,7 +823,7 @@ public class LivePlayActivity extends BaseActivity {
         backcontroller.setVisibility(View.GONE);
         ll_right_top_huikan.setVisibility(View.GONE);
         if(realurl != null){
-            mVideoView.setUrl(real);
+            mVideoView.setUrl(realurl);
         }else{
             mVideoView.setUrl(currentLiveChannelItem.getUrl());
         }
