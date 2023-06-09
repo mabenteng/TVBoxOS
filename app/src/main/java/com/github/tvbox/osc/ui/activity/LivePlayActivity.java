@@ -871,7 +871,7 @@ public class LivePlayActivity extends BaseActivity {
                     Hawk.put(HawkConfig.URL_NAME, urlname);
                     Hawk.put(HawkConfig.URL_TMP,urltmp);
                     tv_right_top_channel_name.setText(urlname);
-                    // ll_right_top_loading.setVisibility(View.VISIBLE);
+                    ll_right_top_loading.setVisibility(View.VISIBLE);
                     showBottomEpg();
                     getEpg(new Date());
                     backcontroller.setVisibility(View.GONE);
