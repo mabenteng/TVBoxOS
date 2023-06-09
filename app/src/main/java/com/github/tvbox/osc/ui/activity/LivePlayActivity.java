@@ -832,7 +832,7 @@ public class LivePlayActivity extends BaseActivity {
         }
         String url0=currentLiveChannelItem.getUrl();
         String url2=null;
-        if(furl0.contains("realurl=")){
+        if(url0.contains("realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
             OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
             Request request = new Request.Builder().url(url0).get().build();
