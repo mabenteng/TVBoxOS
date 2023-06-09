@@ -825,7 +825,13 @@ public class LivePlayActivity extends BaseActivity {
         String url2=null;
         if(url0.contains("&realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
-            OkGo.<String>get(url0).execute(new StringCallback() {
+            OkGo.<String>get(url0).execute(new AbsCallback<String>() {
+
+                @Override
+                public String convertResponse(okhttp3.Response response) throws Throwable {
+                    return response.body().string();
+                }
+    
                 @Override
                 public void onSuccess(Response<String> response) {
                     urltmp = response.body();
