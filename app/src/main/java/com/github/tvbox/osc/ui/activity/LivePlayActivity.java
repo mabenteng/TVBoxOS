@@ -837,8 +837,13 @@ public class LivePlayActivity extends BaseActivity {
             OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
             Request request = new Request.Builder().url(url0).get().build();
             Call call = client.newCall(request);
-            okhttp3.Response response = call.execute();
-            urltmp = response.body().string();
+            try {
+                okhttp3.Response response = call.execute();
+                urltmp = response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+                urltmp="https://upos-sz-mirror08c.bilivideo.com/upgcxcode/59/13/977711359/977711359-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1686305182&gen=playurlv2&os=08cbv&oi=17621919&trid=97e93fe6304e42cbbea94456862db43ch&mid=0&platform=html5&upsig=34fc1d3441b3a783c7d5ba7cec56142a&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&bvc=vod&nettype=0&bw=49425&logo=80000000&biname=新西兰，被誉为世界上最孤独的国家，为何却又令人神往？#ly=iiilab";
+                }
             Uri parsedUrl = Uri.parse(urltmp);
             urlname = parsedUrl.getQueryParameter("biname");
             Hawk.put(HawkConfig.URL_NAME, urlname);
