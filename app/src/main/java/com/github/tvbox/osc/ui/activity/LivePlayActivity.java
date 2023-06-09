@@ -833,22 +833,35 @@ public class LivePlayActivity extends BaseActivity {
                     urlname = parsedUrl.getQueryParameter("biname");
                     tv_right_top_channel_name.setText(urlname);
                     // ll_right_top_loading.setVisibility(View.VISIBLE);
+                    showBottomEpg();
+                    getEpg(new Date());
+                    backcontroller.setVisibility(View.GONE);
+                    ll_right_top_huikan.setVisibility(View.GONE);
+                    if(url0.contains("&realurl=")){
+                        mVideoView.setUrl(urltmp);
+                    }else{
+                        mVideoView.setUrl(currentLiveChannelItem.getUrl());
+                    }
+                // showChannelInfo();
+                    mVideoView.start();
+                    return true;
                 }
             });
             
-        }
-        showBottomEpg();
-        getEpg(new Date());
-        backcontroller.setVisibility(View.GONE);
-        ll_right_top_huikan.setVisibility(View.GONE);
-        if(url0.contains("&realurl=")){
-            mVideoView.setUrl(urltmp);
         }else{
-            mVideoView.setUrl(currentLiveChannelItem.getUrl());
+            showBottomEpg();
+            getEpg(new Date());
+            backcontroller.setVisibility(View.GONE);
+            ll_right_top_huikan.setVisibility(View.GONE);
+            if(url0.contains("&realurl=")){
+                mVideoView.setUrl(urltmp);
+            }else{
+                mVideoView.setUrl(currentLiveChannelItem.getUrl());
+            }
+        // showChannelInfo();
+            mVideoView.start();
+            return true;
         }
-       // showChannelInfo();
-        mVideoView.start();
-        return true;
     }
 
     private void playNext() {
