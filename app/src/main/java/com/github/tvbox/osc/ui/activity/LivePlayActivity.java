@@ -67,11 +67,11 @@ import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-// import okhttp3.Call;
-// import okhttp3.OkHttpClient;
-// import okhttp3.Request;
-// import okhttp3.Response;
-import okhttp3;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+// import okhttp3;
 
 import com.orhanobut.hawk.Hawk;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
@@ -833,9 +833,9 @@ public class LivePlayActivity extends BaseActivity {
         String url2=null;
         if(url0.contains("&realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
-            okhttp3.OkHttpClient client = new okhttp3.OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
-            okhttp3.Request request = new okhttp3.Request.Builder().url(url0).get().build();
-            okhttp3.Call call = client.newCall(request);
+            OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
+            Request request = new Request.Builder().url(url0).get().build();
+            Call call = client.newCall(request);
             try {
                 okhttp3.Response response = call.execute();
                 urltmp = response.body();
