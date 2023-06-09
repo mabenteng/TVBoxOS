@@ -564,7 +564,7 @@ public class LivePlayActivity extends BaseActivity {
             // ll_right_top_loading.setVisibility(View.VISIBLE);
             
             //}
-            countDownTimerRightTop=null;
+            // countDownTimerRightTop=null;
             if (countDownTimerRightTop != null) {
                 countDownTimerRightTop.cancel();
             }
@@ -865,7 +865,7 @@ public class LivePlayActivity extends BaseActivity {
     
                 @Override
                 public void onSuccess(Response<String> response) {
-                    urltmp = response.body();
+                    urltmp = response.body().string();
                     Uri parsedUrl = Uri.parse(urltmp);
                     urlname = parsedUrl.getQueryParameter("biname");
                     Hawk.put(HawkConfig.URL_NAME, urlname);
