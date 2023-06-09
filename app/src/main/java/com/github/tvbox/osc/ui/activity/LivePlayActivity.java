@@ -558,8 +558,8 @@ public class LivePlayActivity extends BaseActivity {
             if(urlname!=""){
                 tv_right_top_channel_name.setText(urlname);
             }else{
-                tv_right_top_channel_name.setText("urlname是空showBottomEpg");
-                // tv_right_top_channel_name.setText(channel_Name.getChannelName());
+                // tv_right_top_channel_name.setText("urlname是空showBottomEpg");
+                tv_right_top_channel_name.setText(channel_Name.getChannelName());
             }
             // ll_right_top_loading.setVisibility(View.VISIBLE);
             
@@ -832,29 +832,25 @@ public class LivePlayActivity extends BaseActivity {
         }
         String url0=currentLiveChannelItem.getUrl();
         String url2=null;
-        if(False && url0.contains("&realurl=")){
+        if(url0.contains("&realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
             OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
             Request request = new Request.Builder().url(url0).get().build();
             Call call = client.newCall(request);
-            try {
-                okhttp3.Response response = call.execute();
-                urltmp = response.body().string();
-                Uri parsedUrl = Uri.parse(urltmp);
-                urlname = parsedUrl.getQueryParameter("biname");
-                Hawk.put(HawkConfig.URL_NAME, urlname);
-                Hawk.put(HawkConfig.URL_TMP,urltmp);
-                tv_right_top_channel_name.setText(urlname);
-                ll_right_top_loading.setVisibility(View.VISIBLE);
-                showBottomEpg();
-                getEpg(new Date());
-                backcontroller.setVisibility(View.GONE);
-                ll_right_top_huikan.setVisibility(View.GONE);
-                mVideoView.setUrl(urltmp);
-                mVideoView.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            okhttp3.Response response = call.execute();
+            urltmp = response.body().string();
+            Uri parsedUrl = Uri.parse(urltmp);
+            urlname = parsedUrl.getQueryParameter("biname");
+            Hawk.put(HawkConfig.URL_NAME, urlname);
+            Hawk.put(HawkConfig.URL_TMP,urltmp);
+            tv_right_top_channel_name.setText(urlname);
+            ll_right_top_loading.setVisibility(View.VISIBLE);
+            showBottomEpg();
+            getEpg(new Date());
+            backcontroller.setVisibility(View.GONE);
+            ll_right_top_huikan.setVisibility(View.GONE);
+            mVideoView.setUrl(urltmp);
+            mVideoView.start();
             // OkGo.<String>get(url0).execute(new AbsCallback<String>() {
 
             //     @Override
