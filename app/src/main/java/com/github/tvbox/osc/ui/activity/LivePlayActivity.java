@@ -844,7 +844,6 @@ public class LivePlayActivity extends BaseActivity {
                     }
                 // showChannelInfo();
                     mVideoView.start();
-                    return true;
                 }
             });
             
@@ -862,6 +861,7 @@ public class LivePlayActivity extends BaseActivity {
             mVideoView.start();
             return true;
         }
+        return true;
     }
 
     private void playNext() {
