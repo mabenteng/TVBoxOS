@@ -558,7 +558,7 @@ public class LivePlayActivity extends BaseActivity {
             if(urlname!=""){
                 tv_right_top_channel_name.setText(urlname);
             }else{
-                tv_right_top_channel_name.setText("urlname是空");
+                tv_right_top_channel_name.setText("urlname是空showBottomEpg");
                 // tv_right_top_channel_name.setText(channel_Name.getChannelName());
             }
             // ll_right_top_loading.setVisibility(View.VISIBLE);
@@ -1327,7 +1327,7 @@ public class LivePlayActivity extends BaseActivity {
                 currentLiveChangeSourceTimes = 0;
                 //如果标题包含*就重复播放当前的url
                 if(currentLiveChannelItem.getChannelName().contains("*")){
-                    playChannel(currentChannelGroupIndex, currentLiveChannelIndex,true);
+                    playChannel(currentChannelGroupIndex, currentLiveChannelIndex,false);
                 }else{
                     Integer[] groupChannelIndex = getNextChannel(Hawk.get(HawkConfig.LIVE_CHANNEL_REVERSE, false) ? -1 : 1);
                     playChannel(groupChannelIndex[0], groupChannelIndex[1], false);
