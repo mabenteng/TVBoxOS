@@ -67,11 +67,11 @@ import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import java.util.concurrent.TimeUnit;
-import java.io.IOException;
+// import okhttp3.Call;
+// import okhttp3.OkHttpClient;
+// import okhttp3.Request;
+// import java.util.concurrent.TimeUnit;
+// import java.io.IOException;
 // import okhttp3;
 
 import com.orhanobut.hawk.Hawk;
@@ -832,59 +832,54 @@ public class LivePlayActivity extends BaseActivity {
         }
         String url0=currentLiveChannelItem.getUrl();
         String url2=null;
-        if(false && url0.contains("realurl=")){
+        if(url0.contains("realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
-            try {
-                OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
-                Request request = new Request.Builder().url(url0).get().build();
-                Call call = client.newCall(request);
-                okhttp3.Response response = call.execute();
-                urltmp = response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-                urltmp="https://upos-sz-mirror08c.bilivideo.com/upgcxcode/59/13/977711359/977711359-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1686305182&gen=playurlv2&os=08cbv&oi=17621919&trid=97e93fe6304e42cbbea94456862db43ch&mid=0&platform=html5&upsig=34fc1d3441b3a783c7d5ba7cec56142a&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&bvc=vod&nettype=0&bw=49425&logo=80000000&biname=网络异常报错了的biname#ly=iiilab";
-                }
-            Uri parsedUrl = Uri.parse(urltmp);
-            urlname = parsedUrl.getQueryParameter("biname");
-            Hawk.put(HawkConfig.URL_NAME, urlname);
-            Hawk.put(HawkConfig.URL_TMP,urltmp);
-            tv_right_top_channel_name.setText(urlname);
-            ll_right_top_loading.setVisibility(View.VISIBLE);
-            showBottomEpg();
-            getEpg(new Date());
-            backcontroller.setVisibility(View.GONE);
-            ll_right_top_huikan.setVisibility(View.GONE);
-            mVideoView.setUrl(urltmp);
-            mVideoView.start();
-            // OkGo.<String>get(url0).execute(new AbsCallback<String>() {
+            // try {
+            //     OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
+            //     Request request = new Request.Builder().url(url0).get().build();
+            //     Call call = client.newCall(request);
+            //     okhttp3.Response response = call.execute();
+            //     urltmp = response.body().string();
+            // } catch (IOException e) {
+            //     e.printStackTrace();
+            //     urltmp="https://upos-sz-mirror08c.bilivideo.com/upgcxcode/59/13/977711359/977711359-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1686305182&gen=playurlv2&os=08cbv&oi=17621919&trid=97e93fe6304e42cbbea94456862db43ch&mid=0&platform=html5&upsig=34fc1d3441b3a783c7d5ba7cec56142a&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&bvc=vod&nettype=0&bw=49425&logo=80000000&biname=网络异常报错了的biname#ly=iiilab";
+            //     }
+            // Uri parsedUrl = Uri.parse(urltmp);
+            // urlname = parsedUrl.getQueryParameter("biname");
+            // Hawk.put(HawkConfig.URL_NAME, urlname);
+            // Hawk.put(HawkConfig.URL_TMP,urltmp);
+            // tv_right_top_channel_name.setText(urlname);
+            // ll_right_top_loading.setVisibility(View.VISIBLE);
+            // showBottomEpg();
+            // getEpg(new Date());
+            // backcontroller.setVisibility(View.GONE);
+            // ll_right_top_huikan.setVisibility(View.GONE);
+            // mVideoView.setUrl(urltmp);
+            // mVideoView.start();
+            OkGo.<String>get(url0).execute(new AbsCallback<String>() {
 
-            //     @Override
-            //     public String convertResponse(okhttp3.Response response) throws Throwable {
-            //         return response.body().string();
-            //     }
+                @Override
+                public String convertResponse(okhttp3.Response response) throws Throwable {
+                    return response.body().string();
+                }
     
-            //     @Override
-            //     public void onSuccess(Response<String> response) {
-            //         urltmp = response.body();
-            //         Uri parsedUrl = Uri.parse(urltmp);
-            //         urlname = parsedUrl.getQueryParameter("biname");
-            //         Hawk.put(HawkConfig.URL_NAME, urlname);
-            //         Hawk.put(HawkConfig.URL_TMP,urltmp);
-            //         tv_right_top_channel_name.setText(urlname);
-            //         // ll_right_top_loading.setVisibility(View.VISIBLE);
-            //         showBottomEpg();
-            //         getEpg(new Date());
-            //         backcontroller.setVisibility(View.GONE);
-            //         ll_right_top_huikan.setVisibility(View.GONE);
-            //         if(currentLiveChannelItem.getUrl().contains("&realurl=")){
-            //             mVideoView.setUrl(urltmp);
-            //         }else{
-            //             mVideoView.setUrl(currentLiveChannelItem.getUrl());
-            //         }
-            //     // showChannelInfo();
-            //         mVideoView.start();
-            //     }
-            // });
+                @Override
+                public void onSuccess(Response<String> response) {
+                    urltmp = response.body();
+                    Uri parsedUrl = Uri.parse(urltmp);
+                    urlname = parsedUrl.getQueryParameter("biname");
+                    Hawk.put(HawkConfig.URL_NAME, urlname);
+                    Hawk.put(HawkConfig.URL_TMP,urltmp);
+                    tv_right_top_channel_name.setText(urlname);
+                    // ll_right_top_loading.setVisibility(View.VISIBLE);
+                    showBottomEpg();
+                    getEpg(new Date());
+                    backcontroller.setVisibility(View.GONE);
+                    ll_right_top_huikan.setVisibility(View.GONE);
+                    mVideoView.setUrl(urltmp);
+                    mVideoView.start();
+                }
+            });
             
         }else{
             showBottomEpg();
