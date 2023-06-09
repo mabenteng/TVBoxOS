@@ -553,7 +553,7 @@ public class LivePlayActivity extends BaseActivity {
             //     tv_right_top_channel_name.setText(urlname);
             // }else{
             //     // tv_right_top_channel_name.setText("urlname是空showBottomEpg");
-            tv_right_top_channel_name.setText(channel_Name.getChannelName());
+            // tv_right_top_channel_name.setText(channel_Name.getChannelName());
             // }
             ll_right_top_loading.setVisibility(View.VISIBLE);
             
@@ -845,17 +845,7 @@ public class LivePlayActivity extends BaseActivity {
                     // Hawk.put(HawkConfig.URL_TMP,urltmp);
                     tv_right_top_channel_name.setText(urlname);
                     ll_right_top_loading.setVisibility(View.VISIBLE);
-                    if (countDownTimerRightTop != null) {
-                        countDownTimerRightTop.cancel();
-                    }
-                    countDownTimerRightTop = new CountDownTimer(5000, 1000) {
-                        public void onTick(long j) {
-                        }
-                        public void onFinish() {
-                            ll_right_top_loading.setVisibility(View.GONE);
-                        }
-                    };
-                    countDownTimerRightTop.start();
+                    
                     showBottomEpg();
                     getEpg(new Date());
                     backcontroller.setVisibility(View.GONE);
@@ -872,8 +862,19 @@ public class LivePlayActivity extends BaseActivity {
             ll_right_top_huikan.setVisibility(View.GONE);
             mVideoView.setUrl(currentLiveChannelItem.getUrl());
             mVideoView.start();
-            return true;
+            // return true;
         }
+        if (countDownTimerRightTop != null) {
+            countDownTimerRightTop.cancel();
+        }
+        countDownTimerRightTop = new CountDownTimer(5000, 1000) {
+            public void onTick(long j) {
+            }
+            public void onFinish() {
+                ll_right_top_loading.setVisibility(View.GONE);
+            }
+        };
+        countDownTimerRightTop.start();
         return true;
     }
 
