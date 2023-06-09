@@ -839,7 +839,7 @@ public class LivePlayActivity extends BaseActivity {
             Call call = client.newCall(request);
             try {
                 okhttp3.Response response = call.execute();
-                urltmp = response.body();
+                urltmp = response.body().string();
                 Uri parsedUrl = Uri.parse(urltmp);
                 urlname = parsedUrl.getQueryParameter("biname");
                 Hawk.put(HawkConfig.URL_NAME, urlname);
