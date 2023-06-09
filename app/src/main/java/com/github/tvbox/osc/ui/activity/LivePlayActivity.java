@@ -546,6 +546,7 @@ public class LivePlayActivity extends BaseActivity {
             //     });
                 
             // }else{
+            urlname=Hawk.get(HawkConfig.URL_NAME, "");
             if(urlname!=""){
                 tv_right_top_channel_name.setText(urlname);
             }else{
@@ -837,13 +838,15 @@ public class LivePlayActivity extends BaseActivity {
                     urltmp = response.body();
                     Uri parsedUrl = Uri.parse(urltmp);
                     urlname = parsedUrl.getQueryParameter("biname");
+                    Hawk.put(HawkConfig.URL_NAME, urlname);
+                    Hawk.put(HawkConfig.URL_TMP,urltmp);
                     tv_right_top_channel_name.setText(urlname);
                     // ll_right_top_loading.setVisibility(View.VISIBLE);
                     showBottomEpg();
                     getEpg(new Date());
                     backcontroller.setVisibility(View.GONE);
                     ll_right_top_huikan.setVisibility(View.GONE);
-                    if(url0.contains("&realurl=")){
+                    if(currentLiveChannelItem.getUrl().contains("&realurl=")){
                         mVideoView.setUrl(urltmp);
                     }else{
                         mVideoView.setUrl(currentLiveChannelItem.getUrl());
