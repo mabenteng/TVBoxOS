@@ -117,7 +117,6 @@ public class LivePlayActivity extends BaseActivity {
     private List<LiveSettingGroup> liveSettingGroupList = new ArrayList<>();
 
     public static  int currentChannelGroupIndex = 0;
-    public static  String urltmp = "";
     private Handler mHandler = new Handler();
 
     private List<LiveChannelGroup> liveChannelGroupList = new ArrayList<>();
@@ -192,8 +191,8 @@ public class LivePlayActivity extends BaseActivity {
     private View iv_playpause;
     private View iv_play;
     private  boolean show = false;
-    private static String urlname = "";
-
+    public static String urlname = "";
+    public static  String urltmp = "";
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_live_play;
@@ -550,7 +549,8 @@ public class LivePlayActivity extends BaseActivity {
             if(urlname!=""){
                 tv_right_top_channel_name.setText(urlname);
             }else{
-                tv_right_top_channel_name.setText(channel_Name.getChannelName());
+                tv_right_top_channel_name.setText("urlname是空");
+                // tv_right_top_channel_name.setText(channel_Name.getChannelName());
             }
             ll_right_top_loading.setVisibility(View.VISIBLE);
             
