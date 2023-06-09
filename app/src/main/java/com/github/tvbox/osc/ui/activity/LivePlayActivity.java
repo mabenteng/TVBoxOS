@@ -192,7 +192,7 @@ public class LivePlayActivity extends BaseActivity {
     private View iv_playpause;
     private View iv_play;
     private  boolean show = false;
-    private  String urlname = "";
+    private static String urlname = "";
 
     @Override
     protected int getLayoutResID() {
@@ -549,17 +549,15 @@ public class LivePlayActivity extends BaseActivity {
             // }else{
             if(urlname!=""){
                 tv_right_top_channel_name.setText(urlname);
-                //右上角名字
-                tv_right_top_epg_name.setText(urlname);
             }else{
                 tv_right_top_channel_name.setText(channel_Name.getChannelName());
-                tv_right_top_epg_name.setText(channel_Name.getChannelName());
             }
             ll_right_top_loading.setVisibility(View.VISIBLE);
             
             //}
             if (countDownTimerRightTop != null) {
                 countDownTimerRightTop.cancel();
+                countDownTimerRightTop=null;
             }
             countDownTimerRightTop = new CountDownTimer(5000, 1000) {
                 public void onTick(long j) {
@@ -832,9 +830,8 @@ public class LivePlayActivity extends BaseActivity {
                 public void onSuccess(Response<String> response) {
                     urltmp = response.body();
                     Uri parsedUrl = Uri.parse(urltmp);
-                    String urlname = parsedUrl.getQueryParameter("biname");
+                    urlname = parsedUrl.getQueryParameter("biname");
                     tv_right_top_channel_name.setText(urlname);
-                    tv_right_top_epg_name.setText(urlname);
                     // ll_right_top_loading.setVisibility(View.VISIBLE);
                 }
             });
