@@ -561,12 +561,12 @@ public class LivePlayActivity extends BaseActivity {
                 tv_right_top_channel_name.setText("urlname是空");
                 // tv_right_top_channel_name.setText(channel_Name.getChannelName());
             }
-            ll_right_top_loading.setVisibility(View.VISIBLE);
+            // ll_right_top_loading.setVisibility(View.VISIBLE);
             
             //}
+            countDownTimerRightTop=null;
             if (countDownTimerRightTop != null) {
                 countDownTimerRightTop.cancel();
-                countDownTimerRightTop=null;
             }
             countDownTimerRightTop = new CountDownTimer(5000, 1000) {
                 public void onTick(long j) {
@@ -845,16 +845,12 @@ public class LivePlayActivity extends BaseActivity {
                 Hawk.put(HawkConfig.URL_NAME, urlname);
                 Hawk.put(HawkConfig.URL_TMP,urltmp);
                 tv_right_top_channel_name.setText(urlname);
-                // ll_right_top_loading.setVisibility(View.VISIBLE);
+                ll_right_top_loading.setVisibility(View.VISIBLE);
                 showBottomEpg();
                 getEpg(new Date());
                 backcontroller.setVisibility(View.GONE);
                 ll_right_top_huikan.setVisibility(View.GONE);
-                if(currentLiveChannelItem.getUrl().contains("&realurl=")){
-                    mVideoView.setUrl(urltmp);
-                }else{
-                    mVideoView.setUrl(currentLiveChannelItem.getUrl());
-                }
+                mVideoView.setUrl(urltmp);
                 mVideoView.start();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -894,12 +890,7 @@ public class LivePlayActivity extends BaseActivity {
             getEpg(new Date());
             backcontroller.setVisibility(View.GONE);
             ll_right_top_huikan.setVisibility(View.GONE);
-            if(url0.contains("&realurl=")){
-                mVideoView.setUrl(urltmp);
-            }else{
-                mVideoView.setUrl(currentLiveChannelItem.getUrl());
-            }
-        // showChannelInfo();
+            mVideoView.setUrl(currentLiveChannelItem.getUrl());
             mVideoView.start();
             return true;
         }
