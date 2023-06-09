@@ -548,13 +548,13 @@ public class LivePlayActivity extends BaseActivity {
             //     });
                 
             // }else{
-            urlname=Hawk.get(HawkConfig.URL_NAME, "");
-            if(urlname!=""){
-                tv_right_top_channel_name.setText(urlname);
-            }else{
-                // tv_right_top_channel_name.setText("urlname是空showBottomEpg");
-                tv_right_top_channel_name.setText(channel_Name.getChannelName());
-            }
+            // urlname=Hawk.get(HawkConfig.URL_NAME, "");
+            // if(urlname!=""){
+            //     tv_right_top_channel_name.setText(urlname);
+            // }else{
+            //     // tv_right_top_channel_name.setText("urlname是空showBottomEpg");
+            //     tv_right_top_channel_name.setText(channel_Name.getChannelName());
+            // }
             // ll_right_top_loading.setVisibility(View.VISIBLE);
             
             //}
@@ -841,8 +841,8 @@ public class LivePlayActivity extends BaseActivity {
                     // urlname = parsedUrl.getQueryParameter("biname");
                     String[] urlarr=urltmp.split("biname=");
                     urlname=urlarr[1];
-                    Hawk.put(HawkConfig.URL_NAME, urlname);
-                    Hawk.put(HawkConfig.URL_TMP,urltmp);
+                    // Hawk.put(HawkConfig.URL_NAME, urlname);
+                    // Hawk.put(HawkConfig.URL_TMP,urltmp);
                     tv_right_top_channel_name.setText(urlname);
                     ll_right_top_loading.setVisibility(View.VISIBLE);
                     if (countDownTimerRightTop != null) {
