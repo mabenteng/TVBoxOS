@@ -856,6 +856,8 @@ public class LivePlayActivity extends BaseActivity {
             });
             
         }else{
+            tv_right_top_channel_name.setText(currentLiveChannelItem.getChannelName());
+            ll_right_top_loading.setVisibility(View.VISIBLE);
             showBottomEpg();
             getEpg(new Date());
             backcontroller.setVisibility(View.GONE);
