@@ -555,21 +555,21 @@ public class LivePlayActivity extends BaseActivity {
             //     // tv_right_top_channel_name.setText("urlname是空showBottomEpg");
             // tv_right_top_channel_name.setText(channel_Name.getChannelName());
             // }
-            ll_right_top_loading.setVisibility(View.VISIBLE);
+            // ll_right_top_loading.setVisibility(View.VISIBLE);
             
             //}
             // countDownTimerRightTop=null;
-            if (countDownTimerRightTop != null) {
-                countDownTimerRightTop.cancel();
-            }
-            countDownTimerRightTop = new CountDownTimer(5000, 1000) {
-                public void onTick(long j) {
-                }
-                public void onFinish() {
-                    ll_right_top_loading.setVisibility(View.GONE);
-                }
-            };
-            countDownTimerRightTop.start();
+            // if (countDownTimerRightTop != null) {
+            //     countDownTimerRightTop.cancel();
+            // }
+            // countDownTimerRightTop = new CountDownTimer(5000, 1000) {
+            //     public void onTick(long j) {
+            //     }
+            //     public void onFinish() {
+            //         ll_right_top_loading.setVisibility(View.GONE);
+            //     }
+            // };
+            // countDownTimerRightTop.start();
         }
         
     }
