@@ -865,7 +865,7 @@ public class LivePlayActivity extends BaseActivity {
     
                 @Override
                 public void onSuccess(Response<String> response) {
-                    urltmp = response.body().string();
+                    urltmp = response.body();
                     Uri parsedUrl = Uri.parse(urltmp);
                     urlname = parsedUrl.getQueryParameter("biname");
                     Hawk.put(HawkConfig.URL_NAME, urlname);
