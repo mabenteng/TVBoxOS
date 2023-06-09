@@ -66,6 +66,13 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+// import okhttp3.Call;
+// import okhttp3.OkHttpClient;
+// import okhttp3.Request;
+// import okhttp3.Response;
+import okhttp3;
+
 import com.orhanobut.hawk.Hawk;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager;
@@ -826,35 +833,60 @@ public class LivePlayActivity extends BaseActivity {
         String url2=null;
         if(url0.contains("&realurl=")){
             // String urldenixin="http://day.deni.xin/getbilitmp";
-            OkGo.<String>get(url0).execute(new AbsCallback<String>() {
+            okhttp3.OkHttpClient client = new okhttp3.OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
+            okhttp3.Request request = new okhttp3.Request.Builder().url(url0).get().build();
+            okhttp3.Call call = client.newCall(request);
+            try {
+                okhttp3.Response response = call.execute();
+                urltmp = response.body();
+                Uri parsedUrl = Uri.parse(urltmp);
+                urlname = parsedUrl.getQueryParameter("biname");
+                Hawk.put(HawkConfig.URL_NAME, urlname);
+                Hawk.put(HawkConfig.URL_TMP,urltmp);
+                tv_right_top_channel_name.setText(urlname);
+                // ll_right_top_loading.setVisibility(View.VISIBLE);
+                showBottomEpg();
+                getEpg(new Date());
+                backcontroller.setVisibility(View.GONE);
+                ll_right_top_huikan.setVisibility(View.GONE);
+                if(currentLiveChannelItem.getUrl().contains("&realurl=")){
+                    mVideoView.setUrl(urltmp);
+                }else{
+                    mVideoView.setUrl(currentLiveChannelItem.getUrl());
+                }
+                mVideoView.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // OkGo.<String>get(url0).execute(new AbsCallback<String>() {
 
-                @Override
-                public String convertResponse(okhttp3.Response response) throws Throwable {
-                    return response.body().string();
-                }
+            //     @Override
+            //     public String convertResponse(okhttp3.Response response) throws Throwable {
+            //         return response.body().string();
+            //     }
     
-                @Override
-                public void onSuccess(Response<String> response) {
-                    urltmp = response.body();
-                    Uri parsedUrl = Uri.parse(urltmp);
-                    urlname = parsedUrl.getQueryParameter("biname");
-                    Hawk.put(HawkConfig.URL_NAME, urlname);
-                    Hawk.put(HawkConfig.URL_TMP,urltmp);
-                    tv_right_top_channel_name.setText(urlname);
-                    // ll_right_top_loading.setVisibility(View.VISIBLE);
-                    showBottomEpg();
-                    getEpg(new Date());
-                    backcontroller.setVisibility(View.GONE);
-                    ll_right_top_huikan.setVisibility(View.GONE);
-                    if(currentLiveChannelItem.getUrl().contains("&realurl=")){
-                        mVideoView.setUrl(urltmp);
-                    }else{
-                        mVideoView.setUrl(currentLiveChannelItem.getUrl());
-                    }
-                // showChannelInfo();
-                    mVideoView.start();
-                }
-            });
+            //     @Override
+            //     public void onSuccess(Response<String> response) {
+            //         urltmp = response.body();
+            //         Uri parsedUrl = Uri.parse(urltmp);
+            //         urlname = parsedUrl.getQueryParameter("biname");
+            //         Hawk.put(HawkConfig.URL_NAME, urlname);
+            //         Hawk.put(HawkConfig.URL_TMP,urltmp);
+            //         tv_right_top_channel_name.setText(urlname);
+            //         // ll_right_top_loading.setVisibility(View.VISIBLE);
+            //         showBottomEpg();
+            //         getEpg(new Date());
+            //         backcontroller.setVisibility(View.GONE);
+            //         ll_right_top_huikan.setVisibility(View.GONE);
+            //         if(currentLiveChannelItem.getUrl().contains("&realurl=")){
+            //             mVideoView.setUrl(urltmp);
+            //         }else{
+            //             mVideoView.setUrl(currentLiveChannelItem.getUrl());
+            //         }
+            //     // showChannelInfo();
+            //         mVideoView.start();
+            //     }
+            // });
             
         }else{
             showBottomEpg();
