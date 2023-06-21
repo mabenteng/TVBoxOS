@@ -827,7 +827,7 @@ public class LivePlayActivity extends BaseActivity {
         }
         String url0=currentLiveChannelItem.getUrl();
         String url2=null;
-        if(url0.contains("realurl=")){
+        if(url0.contains("realurl=") || url0.contains("dylive.php")){
             OkGo.<String>get(url0).execute(new AbsCallback<String>() {
 
                 @Override
