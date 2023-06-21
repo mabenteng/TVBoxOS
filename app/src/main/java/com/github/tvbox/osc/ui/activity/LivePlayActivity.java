@@ -846,8 +846,8 @@ public class LivePlayActivity extends BaseActivity {
                     tv_right_top_channel_name.setText(urlname);
                     ll_right_top_loading.setVisibility(View.VISIBLE);
                     
-                    showBottomEpg();
-                    getEpg(new Date());
+                    // showBottomEpg();
+                    // getEpg(new Date());
                     backcontroller.setVisibility(View.GONE);
                     ll_right_top_huikan.setVisibility(View.GONE);
                     mVideoView.setUrl(urltmp);
@@ -858,8 +858,8 @@ public class LivePlayActivity extends BaseActivity {
         }else{
             tv_right_top_channel_name.setText(currentLiveChannelItem.getChannelName());
             ll_right_top_loading.setVisibility(View.VISIBLE);
-            showBottomEpg();
-            getEpg(new Date());
+            // showBottomEpg();
+            // getEpg(new Date());
             backcontroller.setVisibility(View.GONE);
             ll_right_top_huikan.setVisibility(View.GONE);
             mVideoView.setUrl(currentLiveChannelItem.getUrl());
@@ -869,7 +869,7 @@ public class LivePlayActivity extends BaseActivity {
         if (countDownTimerRightTop != null) {
             countDownTimerRightTop.cancel();
         }
-        countDownTimerRightTop = new CountDownTimer(5000, 1000) {
+        countDownTimerRightTop = new CountDownTimer(8000, 1000) {
             public void onTick(long j) {
             }
             public void onFinish() {
@@ -1308,6 +1308,10 @@ public class LivePlayActivity extends BaseActivity {
             //如果当前频道的总播放源等于当前改变源的次数,说明播放了一遍了,就归0播放下一个
             if (currentLiveChannelItem.getSourceNum() == currentLiveChangeSourceTimes) {
                 currentLiveChangeSourceTimes = 0;
+                //如果url包含多个合集,就计算播放合集的下一个节目.
+                if(currentLiveChannelItem.getUrl().contains("heji")){
+                    playChannel(currentChannelGroupIndex, currentLiveChannelIndex,false);
+                }
                 //如果标题包含*就重复播放当前的url
                 if(currentLiveChannelItem.getChannelName().contains("*")){
                     playChannel(currentChannelGroupIndex, currentLiveChannelIndex,false);

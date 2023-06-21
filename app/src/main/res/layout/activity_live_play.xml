@@ -747,6 +747,8 @@
 			android:layout_height="wrap_content"
 			android:layout_alignParentTop="true"
 			android:layout_marginEnd="@dimen/vs_5"
+			android:layout_marginLeft="10mm"
+			android:layout_marginTop="10mm"
 			android:layout_marginRight="@dimen/vs_5"
 			android:layout_toStartOf="@+id/iv_circle_bg"
 			android:layout_toLeftOf="@+id/iv_circle_bg"
