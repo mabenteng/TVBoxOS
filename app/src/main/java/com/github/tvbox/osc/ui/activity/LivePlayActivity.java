@@ -806,6 +806,7 @@ public class LivePlayActivity extends BaseActivity {
         //    // showChannelInfo();
         //     return true;
         // }
+        ll_epg.setVisibility(View.GONE);
         mVideoView.release();
         if (!changeSource) {//如果没有换源
             currentChannelGroupIndex = channelGroupIndex;
@@ -842,7 +843,7 @@ public class LivePlayActivity extends BaseActivity {
                     String[] urlarr=urltmp.split("biname=");
                     urlname=urlarr[1];
                     // Hawk.put(HawkConfig.URL_NAME, urlname);
-                    // Hawk.put(HawkConfig.URL_TMP,urltmp);
+                    Hawk.put(HawkConfig.URL_TMP,urltmp);
                     tv_right_top_channel_name.setText(urlname);
                     ll_right_top_loading.setVisibility(View.VISIBLE);
                     
