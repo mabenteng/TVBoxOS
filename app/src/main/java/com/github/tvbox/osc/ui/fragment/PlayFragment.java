@@ -73,6 +73,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
+import com.github.tvbox.osc.util.OkGoHelper;
+import okhttp3.OkHttpClient;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 import com.orhanobut.hawk.Hawk;
 
@@ -997,6 +999,10 @@ public class PlayFragment extends BaseLazyFragment {
             } catch (Throwable e) {
                 e.printStackTrace();
             }
+            // 稻香添加
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            OkGoHelper.setsslok(builder);
+            OkGo.getInstance().setOkHttpClient(builder.build());
             OkGo.<String>get(pb.getUrl() + encodeUrl(webUrl))
                     .tag("json_jx")
                     .headers(reqHeaders)

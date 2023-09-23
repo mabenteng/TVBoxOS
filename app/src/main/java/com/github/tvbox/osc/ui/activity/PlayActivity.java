@@ -107,6 +107,8 @@ import tv.danmaku.ijk.media.player.IjkTimedText;
 import xyz.doikki.videoplayer.player.AbstractPlayer;
 import xyz.doikki.videoplayer.player.ProgressManager;
 
+import com.github.tvbox.osc.util.OkGoHelper;
+import okhttp3.OkHttpClient;
 public class PlayActivity extends BaseActivity {
     private MyVideoView mVideoView;
     private TextView mPlayLoadTip;
@@ -979,6 +981,10 @@ public class PlayActivity extends BaseActivity {
             } catch (Throwable e) {
                 e.printStackTrace();
             }
+            // 稻香添加
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            OkGoHelper.setsslok(builder);
+            OkGo.getInstance().setOkHttpClient(builder.build());
             OkGo.<String>get(pb.getUrl() + encodeUrl(webUrl))
                     .tag("json_jx")
                     .headers(reqHeaders)

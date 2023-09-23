@@ -15,3 +15,12 @@ OkHttpClient okHttpClient = builder.build();
 OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
 
+
+
+
+import com.github.tvbox.osc.util.OkGoHelper;
+import okhttp3.OkHttpClient;
+// 稻香添加
+OkHttpClient.Builder builder = new OkHttpClient.Builder();
+OkGoHelper.setsslok(builder);
+OkGo.getInstance().setOkHttpClient(builder.build());
