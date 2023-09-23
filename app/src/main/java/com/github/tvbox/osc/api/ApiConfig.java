@@ -44,7 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import com.github.tvbox.osc.util.OkGoHelper;
+import okhttp3.OkHttpClient;
 /**
  * @author pj567
  * @date :2020/12/18
@@ -161,6 +162,10 @@ public class ApiConfig {
             configUrl = apiUrl;
         }
         String configKey = TempKey;
+        // 稻香添加
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkGoHelper.setsslok(builder);
+        OkGo.getInstance().init(this).setOkHttpClient(builder.build());
         OkGo.<String>get(configUrl)
                 .headers("User-Agent", userAgent)
                 .headers("Accept", requestAccept)
@@ -243,6 +248,10 @@ public class ApiConfig {
 
         boolean isJarInImg = jarUrl.startsWith("img+");
         jarUrl = jarUrl.replace("img+", "");
+        // 稻香添加
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkGoHelper.setsslok(builder);
+        OkGo.getInstance().init(this).setOkHttpClient(builder.build());
         OkGo.<File>get(jarUrl)
                 .headers("User-Agent", userAgent)
                 .headers("Accept", requestAccept)

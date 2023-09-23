@@ -1,0 +1,17 @@
+import com.github.tvbox.osc.util.SSL.SSLSocketFactoryCompat;
+import javax.net.ssl.SSLSocketFactory;
+final SSLSocketFactory sslSocketFactory = new SSLSocketFactoryCompat(trustAllCert);
+builder.sslSocketFactory(sslSocketFactory, trustAllCert);
+
+
+builder是这个
+OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+
+import com.github.tvbox.osc.util.OkGoHelper;
+OkGoHelper.setsslok(builder)//这个获取就是解决4.4ssl的办法
+
+
+OkHttpClient okHttpClient = builder.build();
+OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+
