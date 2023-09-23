@@ -165,7 +165,7 @@ public class ApiConfig {
         // 稻香添加
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         OkGoHelper.setsslok(builder);
-        OkGo.getInstance().init(this).setOkHttpClient(builder.build());
+        OkGo.getInstance().setOkHttpClient(builder.build());
         OkGo.<String>get(configUrl)
                 .headers("User-Agent", userAgent)
                 .headers("Accept", requestAccept)
@@ -251,7 +251,7 @@ public class ApiConfig {
         // 稻香添加
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         OkGoHelper.setsslok(builder);
-        OkGo.getInstance().init(this).setOkHttpClient(builder.build());
+        OkGo.getInstance().setOkHttpClient(builder.build());
         OkGo.<File>get(jarUrl)
                 .headers("User-Agent", userAgent)
                 .headers("Accept", requestAccept)
